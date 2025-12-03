@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>液态玻璃风格关键词输入工具</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* 背景装饰 */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+
+        body::before {
+            top: 10%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        body::after {
+            bottom: 10%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* 容器 - 液态玻璃效果 */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 标题 */
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 关键词组容器 */
+        .keywords-container {
+            margin-bottom: 30px;
+        }
+
+        .keywords-container h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .keywords-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* 关键词按钮 */
+        .keyword-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .keyword-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .keyword-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 文本输入区域 */
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        .input-container h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        #text-input {
+            width: 100%;
+            height: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #text-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        #text-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 提示信息 */
+        .hint {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #text-input {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>关键词输入工具</h1>
+        
+        <div class="keywords-container">
+            <h2>关键词组</h2>
+            <div class="keywords-grid">
+                <button class="keyword-btn">人工智能</button>
+                <button class="keyword-btn">机器学习</button>
+                <button class="keyword-btn">深度学习</button>
+                <button class="keyword-btn">数据分析</button>
+                <button class="keyword-btn">自然语言处理</button>
+                <button class="keyword-btn">计算机视觉</button>
+                <button class="keyword-btn">数据挖掘</button>
+                <button class="keyword-btn">算法优化</button>
+                <button class="keyword-btn">模型训练</button>
+                <button class="keyword-btn">特征工程</button>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <h2>文本输入</h2>
+            <textarea id="text-input" placeholder="点击上方关键词或直接输入文本..."></textarea>
+        </div>
+        
+        <div class="hint">
+            提示：点击关键词可插入到光标位置；按退格键时，如果删除的是关键词的最后一个字，会自动删除整个关键词
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const textInput = document.getElementById('text-input');
+        const keywordBtns = document.querySelectorAll('.keyword-btn');
+        
+        // 存储插入的关键词信息（用于整体删除）
+        let insertedKeywords = [];
+        
+        // 初始化关键词列表
+        const keywords = Array.from(keywordBtns).map(btn => btn.textContent);
+        
+        // 关键词点击事件
+        keywordBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const keyword = btn.textContent;
+                insertKeywordAtCursor(keyword);
+            });
+        });
+        
+        // 在光标位置插入关键词
+        function insertKeywordAtCursor(keyword) {
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+            const textBefore = textInput.value.substring(0, startPos);
+            const textAfter = textInput.value.substring(endPos);
+            
+            // 插入关键词
+            textInput.value = textBefore + keyword + textAfter;
+            
+            // 更新所有在插入位置之后的现有关键词的位置
+            const keywordLength = keyword.length;
+            for (let i = 0; i < insertedKeywords.length; i++) {
+                const existingKeyword = insertedKeywords[i];
+                if (existingKeyword.start >= startPos) {
+                    existingKeyword.start += keywordLength;
+                    existingKeyword.end += keywordLength;
+                }
+            }
+            
+            // 记录插入的新关键词位置
+            insertedKeywords.push({
+                text: keyword,
+                start: startPos,
+                end: startPos + keywordLength
+            });
+            
+            // 更新光标位置
+            const newCursorPos = startPos + keywordLength;
+            textInput.setSelectionRange(newCursorPos, newCursorPos);
+            
+            // 聚焦文本框
+            textInput.focus();
+            
+            // 更新关键词位置索引
+            updateKeywordIndices();
+        }
+        
+        // 更新关键词位置索引
+        function updateKeywordIndices() {
+            // 按结束位置排序
+            insertedKeywords.sort((a, b) => a.end - b.end);
+        }
+        
+        // 文本框输入事件 - 跟踪文本变化并更新关键词位置
+        textInput.addEventListener('input', (e) => {
+            const target = e.target;
+            const currentValue = target.value;
+            
+            // 计算文本变化的位置和长度
+            const deltaLength = currentValue.length - (target.previousValue || '').length;
+            const cursorPos = target.selectionStart;
+            
+            // 更新关键词位置
+            if (deltaLength !== 0 && insertedKeywords.length > 0) {
+                updateKeywordsOnInput(deltaLength, cursorPos);
+            }
+            
+            // 存储当前值用于下一次比较
+            target.previousValue = currentValue;
+        });
+        
+        // 在输入变化时更新关键词位置
+        function updateKeywordsOnInput(deltaLength, changePosition) {
+            // 过滤掉已被修改或删除的关键词
+            const validKeywords = [];
+            
+            for (let i = 0; i < insertedKeywords.length; i++) {
+                const keyword = insertedKeywords[i];
+                
+                // 检查关键词是否仍然完整存在于文本中
+                const textAtPosition = textInput.value.substring(keyword.start, keyword.end);
+                if (textAtPosition === keyword.text) {
+                    // 如果关键词在修改位置之后，更新其位置
+                    if (keyword.start >= changePosition) {
+                        keyword.start += deltaLength;
+                        keyword.end += deltaLength;
+                    } else if (keyword.end > changePosition) {
+                        // 关键词部分被修改，标记为无效
+                        continue;
+                    }
+                    validKeywords.push(keyword);
+                }
+                // 否则关键词已被修改或删除，不保留
+            }
+            
+            insertedKeywords = validKeywords;
+            updateKeywordIndices();
+        }
+        
+        // 文本框按键事件（处理退格键）
+        textInput.addEventListener('keydown', (e) => {
+            // 处理退格键（Backspace）
+            if (e.key === 'Backspace' || e.keyCode === 8) {
+                const cursorPos = textInput.selectionStart;
+                
+                // 检查是否有选中的文本
+                if (textInput.selectionStart !== textInput.selectionEnd) {
+                    // 有选中的文本，让默认删除行为发生
+                    return;
+                }
+                
+                // 检查光标位置是否在某个关键词的末尾
+                const keywordToDelete = insertedKeywords.find(keyword => {
+                    return cursorPos === keyword.end;
+                });
+                
+                if (keywordToDelete) {
+                    // 阻止默认的退格行为
+                    e.preventDefault();
+                    
+                    // 记录要删除的关键词长度
+                    const keywordLength = keywordToDelete.text.length;
+                    const deletePosition = keywordToDelete.start;
+                    
+                    // 删除整个关键词
+                    const textBefore = textInput.value.substring(0, deletePosition);
+                    const textAfter = textInput.value.substring(keywordToDelete.end);
+                    textInput.value = textBefore + textAfter;
+                    
+                    // 设置新的光标位置
+                    const newCursorPos = deletePosition;
+                    textInput.setSelectionRange(newCursorPos, newCursorPos);
+                    
+                    // 更新所有在删除位置之后的关键词的位置
+                    const updatedKeywords = [];
+                    for (let i = 0; i < insertedKeywords.length; i++) {
+                        const keyword = insertedKeywords[i];
+                        if (keyword !== keywordToDelete) {
+                            if (keyword.start > deletePosition) {
+                                // 更新位置
+                                keyword.start -= keywordLength;
+                                keyword.end -= keywordLength;
+                            }
+                            updatedKeywords.push(keyword);
+                        }
+                    }
+                    insertedKeywords = updatedKeywords;
+                    
+                    // 更新关键词位置索引
+                    updateKeywordIndices();
+                    
+                    // 手动更新previousValue，避免input事件中位置计算错误
+                    textInput.previousValue = textInput.value;
+                    
+                    return;
+                }
+                
+                // 如果不是删除关键词的最后一个字符，检查是否在关键词中间
+                const keywordInMiddle = insertedKeywords.find(keyword => {
+                    return cursorPos > keyword.start && cursorPos <= keyword.end;
+                });
+                
+                if (keywordInMiddle) {
+                    // 在关键词中间删除，标记该关键词为无效
+                    const index = insertedKeywords.indexOf(keywordInMiddle);
+                    if (index > -1) {
+                        insertedKeywords.splice(index, 1);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
